@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.2.xsd">
+		
+	<!--  
+	In this configuration there is no messages coming/expected from NiFi and only to NiFi.
+	The oz.spring.SendOnlyService is a LifeCycle bean which upon start will be sending messages
+	to 'toNiFi' channel with random delay
+	 -->
+	
+	<bean class="oz.spring.SendOnlyService">
+		<property name="channel" ref="toNiFi"/>
+	</bean>
+		
+	<int:channel id="toNiFi">
+		<int:queue/>
+	</int:channel>
+</beans>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.2.xsd">
+		
+	<!-- 
+	In this configuration messages received form NiFi will be aggregated in batches of 4 and then released 
+	as a List.toString() back to NIFI. This means there will only be one message going back to NiFi for each 4 coming from NiFi.
+	 -->
+		
+	<int:channel id="fromNiFi"/>
+	
+	<int:channel id="toNiFi">
+		<int:queue/>
+	</int:channel>
+	
+	<int:aggregator input-channel="fromNiFi" output-channel="toNiFi" 
+		correlation-strategy-expression="'1'" expression="toString()" release-strategy-expression="size() > 4" expire-groups-upon-completion="true"/>
+
+</beans>

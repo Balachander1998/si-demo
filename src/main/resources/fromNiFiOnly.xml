@@ -5,13 +5,13 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.2.xsd">
 		
+	<!--  
+	In this configuration messages received from NiFi are logged and nothing goes back to NiFi
+	 -->
 	<int:channel id="fromNiFi"/>
 	
-	<int:channel id="toNiFi">
-		<int:queue/>
-	</int:channel>
-	
-	<int:aggregator input-channel="fromNiFi" output-channel="toNiFi" 
-		correlation-strategy-expression="'1'" expression="toString().getBytes()" release-strategy-expression="size() > 2" expire-groups-upon-completion="true"/>
+	<int:service-activator input-channel="fromNiFi">
+		<bean class="oz.spring.ReceiveOnlyService"/>
+	</int:service-activator>
 
 </beans>

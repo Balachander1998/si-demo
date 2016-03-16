@@ -1,6 +1,6 @@
 # si-demo
 
-Sample Application orimarily for testing/demoying integration between Spring and Apache NiFi
+Sample Application primarily for testing/demoying integration between Spring and Apache NiFi
 
 Contains 4 pre-configured applications in ```src/main/resources```
 

@@ -24,3 +24,7 @@ Drag Spring processor onto the canvas and configure it. The only two required pr
 * _Application Context config path_ - (e.g., requestReply.xml). Use one of the config files mentioned above as they are already part of the JAR.
 
 * _Application Context class path_ - (e.g., /foo/bar/target/deps). Basically use absolute path to the directory with all the JARs
+
+Core features to NOT be missed:
+* Once NiFi is started you can have as many SpringContext processors as you want. Even though they all derive from the same NAR, the instance of Spring Application Context is completely isolated and created/desroyed during start/stop processor. This means that any changes to the Application Context configuration and/or classpath will be picked up upon the next start of the processor. 
+

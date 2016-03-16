@@ -2,7 +2,7 @@
 
 Sample Application orimarily for testing/demoying integration between Spring and Apache NiFi
 
-Contains 4 pre-configured applications in src/main/resources
+Contains 4 pre-configured applications in ```src/main/resources```
 
 - _fromNiFiOny.xml_ - receives messages form NiFi but doesn't send anything back
 - _toNiFiOnly.xml_ - sends generated messages to NiFi, but doesn't expect anything from NiFi

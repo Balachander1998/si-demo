@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.2.xsd
+		http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	
+	<int:channel id="fromNiFi"/>
+	
+	<int:service-activator input-channel="fromNiFi">
+		<bean class="oz.spring.CamelSampleSender">
+			<constructor-arg  ref="camel"/>
+			<constructor-arg value="direct:fromNiFi"/>
+		</bean>
+	</int:service-activator>
+	
+	
+	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+		<route id="defaultRoute">
+            <from uri="direct:fromNiFi" />
+            <to uri="bean:processor?method=process"/>
+        </route>
+	</camelContext>
+	
+	<bean id="processor" class="oz.spring.CamelProcessingBean"/>
+	
+</beans>

@@ -8,6 +8,7 @@ Contains 4 pre-configured applications in ```src/main/resources```
 - _toNiFiOnly.xml_ - sends generated messages to NiFi, but doesn't expect anything from NiFi
 - _biDirectionalWithAggregator.xml_ - send and receives messages from/to NiFi with Spring performing some aggregation.
 - _requestReply.xml_ - a simple echo based setup with message going in and out of spring with slight modification.
+- _camel.xml_ - a sample to demonstrate sending from NiFi to Camel. One directional NiFi -> Camel
 
 More details inside XML files
 
